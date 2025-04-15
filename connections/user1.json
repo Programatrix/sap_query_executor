@@ -1,0 +1,18 @@
+{
+  "hana_serversap100H3": {
+    "host": "https://172.16.1.100",
+    "port": 30013,
+    "user": "SAPB1_ADMIN",
+    "password": "Qsecofr_7331",
+    "schema": "NDB",
+    "database": "JMA_SBO10_JAIME_MASCARO"
+  },
+  "hana_local": {
+    "host": "1",
+    "port": 30015,
+    "user": "test",
+    "password": "2",
+    "schema": "1",
+    "database": "1"
+  }
+}
