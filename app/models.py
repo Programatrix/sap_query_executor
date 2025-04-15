@@ -9,6 +9,8 @@ class ConnectionInfo(BaseModel):
     schema: Optional[str] = None
     database: Optional[str] = None
 
+class ConnectionCreateRequest(ConnectionInfo):
+    connection_id: str
 
 class QueryRequest(BaseModel):
     engine: Literal["sql", "hana"]
