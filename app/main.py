@@ -50,6 +50,17 @@ def create_connection(request: ConnectionCreateRequest, x_user_id: str = Header(
         raise HTTPException(status_code=500, detail=str(e))
 
 # ------------------------
+# ✅ NUEVO: Obtener detalles de una conexión específica
+# ------------------------
+@app.get("/connections/{connection_id}", response_model=ConnectionInfo)
+def get_connection(connection_id: str, x_user_id: str = Header(...)):
+    try:
+        config = load_connection_for_user(x_user_id, connection_id)
+        return config
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+# ------------------------
 # Endpoint: Listar conexiones disponibles para el usuario
 # ------------------------
 @app.get("/connections", response_model=List[str])
