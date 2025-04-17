@@ -21,12 +21,13 @@ def execute_query(request: QueryRequest, x_user_id: str = Header(...)):
         )
 
     try:
-        config = load_connection_for_user(x_user_id, request.connection_id)
+        config_dict = load_connection_for_user(x_user_id, request.connection_id)
+        conn_obj = ConnectionInfo(**config_dict)
 
         if request.engine == "sql":
-            rows = execute_sql_server(request.query, config)
+            rows = execute_sql_server(request.query, conn_obj)
         elif request.engine == "hana":
-            rows = execute_hana(request.query, config)
+            rows = execute_hana(request.query, conn_obj)
         else:
             raise HTTPException(status_code=400, detail="Invalid engine type")
 
@@ -36,6 +37,8 @@ def execute_query(request: QueryRequest, x_user_id: str = Header(...)):
             "rows": rows
         }
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
     
 # ------------------------
